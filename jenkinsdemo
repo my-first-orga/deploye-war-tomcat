@@ -1,7 +1,3 @@
-//Declarative pipelines
-//======================
-
-
 pipeline {
     agent any 
 tools
