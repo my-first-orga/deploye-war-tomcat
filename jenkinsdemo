@@ -1,0 +1,49 @@
+Declarative pipelines
+======================
+
+
+pipeline {
+    agent any 
+tools
+{
+  maven "maven3.9.9"
+}
+
+    stages {
+        stage('checkout stage') { 
+            steps {
+          git credentialsId: '3435f794-fc7b-473f-a415-2e3b0da981c1', url: 'https://github.com/my-first-orga/deploye-war-tomcat.git'
+            }
+        }
+            stage('Build') { 
+            steps {
+         sh "mvn clean package"
+                
+            }
+          }
+          stage('SQREPORT'){
+            steps{
+          sh "mvn sonar:sonar"
+          }
+        }
+         stage('DeployTONexus'){
+           steps{
+          sh "mvn deploy"
+          }
+        }
+        stage('DeployAppToTomcat'){
+           steps{
+
+		echo "Deploying WAR file using curl..."
+
+        sh """
+            curl -u admin:admin \
+            --upload-file /var/lib/jenkins/workspace/declaretive/target/maven-web-application.war \
+            "http://3.86.39.113:8080/manager/text/deploy?path=/maven-web-application&update=true"
+        """
+         
+          }
+        }
+    } //stages closing
+
+}
