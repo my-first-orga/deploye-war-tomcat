@@ -76,6 +76,13 @@ def notifyBuild(String buildStatus = 'STARTED') {
     colorCode = '#FF0000'
   }
 
+// list of slack channels to notify
+//def notification = ['#chanelnname', '#chanelname']
+
+//send notificationb to all channels
+//for (channel in slackchannels) {
+//slackSend(color: colorcode, message: summary, channel: channel)
+
   // Send notifications
   slackSend (color: colorCode, message: summary, channel: '#cbs-bank')
 }
