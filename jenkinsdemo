@@ -8,6 +8,7 @@ tools
     stages {
         stage('checkout stage') { 
             steps {
+            notifyBuild('STARTED')
           git credentialsId: '3435f794-fc7b-473f-a415-2e3b0da981c1', url: 'https://github.com/my-first-orga/deploye-war-tomcat.git'
             }
         }
@@ -42,4 +43,39 @@ tools
         }
     } //stages closing
 
+post {
+  success {
+    notifyBuild(currentBuild.result)
+  }
+  failure {
+notifyBuild(currentBuild.result)
+      }
+}
+}//pipeline closing
+
+
+def notifyBuild(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESS'     
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED') {
+    color = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESS') {
+    color = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    color = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary, channel: '#cbs-bank')
 }
