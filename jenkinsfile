@@ -13,7 +13,7 @@ pipeline
   {
   steps
   {
-  git branch: 'dev', credentialsId: '1da0753f-0076-4bc8-8b51-821fea43c81c', url: 'https://github.com/my-first-orga/deploye-war-tomcat.git'
+  git branch: 'f2', credentialsId: '1da0753f-0076-4bc8-8b51-821fea43c81c', url: 'https://github.com/my-first-orga/deploye-war-tomcat.git'
   }
   }
   stage('build')
