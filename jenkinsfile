@@ -43,7 +43,7 @@ pipeline
   {
  sh """
         curl -u admin:admin \
-            --upload-file /var/lib/jenkins/workspace/declaretive/target/maven-web-application.war \
+            --upload-file /var/lib/jenkins/workspace/multi-f2/target/maven-web-application.war \
             "http://44.202.142.147:8080/manager/text/deploy?path=/maven-web-application&update=true"
         """
   }
