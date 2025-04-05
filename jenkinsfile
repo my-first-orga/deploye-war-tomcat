@@ -42,7 +42,7 @@ pipeline
 	{
 	sh """
         curl -u admin:admin \
-            --upload-file /var/lib/jenkins/workspace/multibranch-pipe/target/maven-web-application.war \
+            --upload-file /var/lib/jenkins/workspace/multibranch-pipe_f1/target/maven-web-application.war \
             "http://18.206.117.65:8080/manager/text/deploy?path=/maven-web-application&update=true"
         """
 	}
