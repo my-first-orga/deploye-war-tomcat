@@ -45,17 +45,7 @@
 			<scope>test</scope>
 		</dependency>
 
-<dependency>
-    <groupId>some.dependency</groupId>
-    <artifactId>some-artifact</artifactId>
-    <version>1.0</version>
-    <exclusions>
-        <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-        </exclusion>
-    </exclusions>
-</dependency>
+
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
