@@ -41,7 +41,7 @@ pipeline
 	{
 		sh """
             curl -u admin:admin \
-            --upload-file /var/lib/jenkins/workspace/mp-pipe-1/target/maven-web-application.war \
+            --upload-file /var/lib/jenkins/workspace/mp-pipe-1_dev/target/maven-web-application.war \
             "http://34.228.55.152:8080/manager/text/deploy?path=/maven-web-application&update=true"
         """
 	}
