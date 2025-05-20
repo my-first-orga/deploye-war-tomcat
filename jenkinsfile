@@ -1,0 +1,50 @@
+pipeline
+{
+	agent any
+	tools
+	{
+		maven "maven"
+	}
+	stages
+	{
+	stage('git')
+	{
+	steps
+	{
+		git credentialsId: '7e4e51b9-361a-4a7a-91b6-09de6784aaae', url: 'https://github.com/my-first-orga/deploye-war-tomcat.git'
+	}
+	}
+	stage('build')
+	{
+	steps
+	{
+		sh "mvn clean package"
+	}
+	}
+	stage('sonar')
+	{
+	steps
+	{
+		sh "mvn clean sonar:sonar"
+	}
+	}
+	stage('nexus')
+	{
+	steps
+	{
+		sh "mvn clean deploy"
+	}
+	}
+	stage('tomcat')
+	{
+	steps
+	{
+		sh """
+            curl -u admin:admin \
+            --upload-file /var/lib/jenkins/workspace/mp-pipe-1/target/maven-web-application.war \
+            "http://34.228.55.152:8080/manager/text/deploy?path=/maven-web-application&update=true"
+        """
+	}
+	}
+	}
+}
